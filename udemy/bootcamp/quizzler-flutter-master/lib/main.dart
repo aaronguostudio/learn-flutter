@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() => runApp(Quizzler());
 
@@ -31,13 +32,12 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
-
-
   int questionIndex = 0;
+  bool isButtonEnabled = true;
 
-  checkAnswer (bool answer) {
+  void checkAnswer (bool answer) {
     setState(() {
-      if (answer == quizBrain.questions[questionIndex].answer) {
+      if (answer == quizBrain.getAnswer(questionIndex)) {
         scoreKeeper.add(
           Icon(Icons.check, color: Colors.green,),
         );
@@ -46,8 +46,39 @@ class _QuizPageState extends State<QuizPage> {
           Icon(Icons.close, color: Colors.red,),
         );
       }
-      questionIndex < quizBrain.questions.length - 1 ? questionIndex++ : questionIndex = 0;
+      if (questionIndex < quizBrain.getQuestionsLength() - 1) {
+        questionIndex++;
+      } else {
+        isButtonEnabled = false;
+        dialog();
+      }
     });
+  }
+  
+  void dialog () {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Quiz is Done!",
+      desc: "Do you want to restart it?",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Restart",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            setState(() {
+              questionIndex = 0;
+              scoreKeeper = [];
+              isButtonEnabled = true;
+            });
+            Navigator.pop(context);
+          },
+          color: Color.fromRGBO(0, 179, 134, 1.0),
+        )
+      ],
+    ).show();
   }
 
   @override
@@ -62,7 +93,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'Question ${questionIndex + 1}: ${quizBrain.questions[questionIndex].question}',
+                'Question ${questionIndex + 1}: ${quizBrain.getQuestion(questionIndex)}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -86,7 +117,8 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                checkAnswer(true);
+                if (isButtonEnabled) checkAnswer(true);
+                else dialog();
               },
             ),
           ),
@@ -104,13 +136,13 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                checkAnswer(false);
+                if (isButtonEnabled) checkAnswer(false);
+                else dialog();
               },
             ),
           ),
         ),
-        Row(
-          mainAxisAlignment: Ma,
+        Wrap(
           children: scoreKeeper,
         )
       ],

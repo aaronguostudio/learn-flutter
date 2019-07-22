@@ -1,7 +1,8 @@
 import 'question.dart';
 
 class QuizBrain {
-  List<Question> questions = [
+  // private
+  List<Question> _questions = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -16,4 +17,17 @@ class QuizBrain {
     Question('Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.', true),
     Question('In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.', true),
   ];
+
+  String getQuestion(int questionIndex) {
+    return _questions[questionIndex].question;
+  }
+
+
+  bool getAnswer(int questionIndex) {
+    return _questions[questionIndex].answer;
+  }
+
+  int getQuestionsLength () {
+    return _questions.length;
+  }
 }
