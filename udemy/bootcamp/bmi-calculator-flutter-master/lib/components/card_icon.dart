@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class CardIcon extends StatelessWidget {
 
-  CardIcon({ @required this.icon, @required this.title });
+  CardIcon({ @required this.icon, @required this.title, @required this.titleStyle });
 
   final IconData icon;
   final String title;
+  final TextStyle titleStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +22,7 @@ class CardIcon extends StatelessWidget {
         ),
         Text(
           title,
-          style: TextStyle(
-              fontSize: 18.0,
-              color: Color(0xFF8D8E98)
-          ),
+          style: titleStyle,
         )
       ],
     );
