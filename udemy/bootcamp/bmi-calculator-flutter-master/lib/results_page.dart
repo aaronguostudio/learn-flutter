@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'components/reusable_card.dart';
-import 'package:bmi_calculator/results_page.dart';
 
 class ResultsPage extends StatelessWidget {
+
+  ResultsPage({
+    @required this.bmiResult,
+    @required this.resultText,
+    @required this.interpretation
+  });
+
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +27,7 @@ class ResultsPage extends StatelessWidget {
             margin: EdgeInsets.only(top: 50.0),
             child: Center(
               child: Text(
-                'Your Result',
+                bmiResult,
                 style: TextStyle(
                   fontSize: 36.0,
                   fontWeight: FontWeight.w900,
@@ -41,7 +51,7 @@ class ResultsPage extends StatelessWidget {
                       child: Container(
                         child: Center(
                           child: Text(
-                            'RESULT',
+                            resultText.toUpperCase(),
                             style: TextStyle(
                               fontSize: 24.0,
                               color: Colors.green,
@@ -54,7 +64,7 @@ class ResultsPage extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          '24',
+                          bmiResult,
                           style: TextStyle(
                             fontSize: 100.0,
                             fontWeight: FontWeight.w600,
@@ -66,7 +76,7 @@ class ResultsPage extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 50.0, left: 20.0, right: 20.0),
                       child: Container(
                         child: Text(
-                          'Your BMI result is quit low, you shoud eat more!',
+                          interpretation,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16.0,
