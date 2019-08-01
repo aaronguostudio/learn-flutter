@@ -1,4 +1,0 @@
-#Fri Jul 26 07:02:29 MDT 2019
-base.0=/Users/aaronguo/workflow/aaron/learn-flutter/udemy/bootcamp/Clima-Flutter/build/app/intermediates/transforms/dexMerger/debug/0
-path.0=classes.dex
-renamed.0=classes.dex
